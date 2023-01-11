@@ -1,13 +1,22 @@
 #!/usr/bin/python3
-Student = __import__('10-student').Student
+"""json"""
 
-student1 = Student("Joe", "Goldberg", 27)
-student2 = Student("Peter", "Stewarts", 30)
 
-Jstudent1 = student1.to_json()
-Jstudent2 = student2.to_json(['first_name', 'age'])
-Jstudent3 = student2.to_json(['middle_name', 'age'])
+class Student:
+    """A student."""
 
-print(Jstudent1)
-print(Jstudent2)
-print(Jstudent3)
+    def __init__(self, first_name, last_name, age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+
+    def to_json(self, attrs=None):
+        """Retrieve a dictionary representation of a Student instance."""
+        if attrs is not None and all(isinstance(x, str) for x in attrs):
+            d = {}
+            for k, v in self.__dict__.items():
+                if k in attrs:
+                    d[k] = v
+            return d
+        else:
+            return self.__dict__
