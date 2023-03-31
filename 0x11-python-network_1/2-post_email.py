@@ -1,18 +1,18 @@
 #!/usr/bin/python3
-""" Script that takes in a URL and an email, sends a POST request
- And displays the body of the response
-"""
+'''
+takes in a url and email, sends a POST request
+displays the body of the response(utf-8 decoded)
 
-import sys
-import urllib.parse
-import urllib.request
+Usage: ./2-post_email.py <url> <email>
+'''
+from sys import argv
+from urllib.request import urlopen, Request
+from urllib.parse import urlencode
 
-
-if __name__ == "__main__":
-    url = sys.argv[1]
-    value = {"email": sys.argv[2]}
-    data = urllib.parse.urlencode(value).encode("ascii")
-
-    request = urllib.request.Request(url, data)
-    with urllib.request.urlopen(request) as resp:
-        print(resp.read().decode("utf-8"))
+if __name__ == '__main__':
+    url = argv[1]
+    email = {'email': argv[2]}
+    data = urlencode(email).encode('ascii')
+    req = Request(url, data)
+    with urlopen(req) as res:
+        print(res.read().decode('utf-8'))

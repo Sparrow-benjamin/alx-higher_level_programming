@@ -1,13 +1,18 @@
 #!/usr/bin/python3
-"""
-Python Script that takes in a URL, sends a request to the URL
-& displays the body of the response
-"""
-import requests
+'''
+takes in url
+sends GET request to url
+displays body of the response
+if error occurs, prints 'Error code:' followed by HTTP status code
+
+Usage: ./7-error_code.py <url>
+'''
 from sys import argv
+import requests
 
 if __name__ == '__main__':
-    r = requests.get(argv[1])
-    status = r.status_code
-    print(r.text) if status < 400 else print(
-        "Error code: {}".format(r.status_code))
+    res = requests.get(argv[1])
+    if res.status_code >= 400:
+        print('Error code: {}'.format(res.status_code))
+    else:
+        print(res.text)
